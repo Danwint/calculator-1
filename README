@@ -1,0 +1,107 @@
+   ____      _            _       _               _   ___  
+  / ___|__ _| | ___ _   _| | __ _| |_ ___  _ __  / | / _ \ 
+ | |   / _` | |/ __| | | | |/ _` | __/ _ \| '__| | || | | |
+ | |__| (_| | | (__| |_| | | (_| | || (_) | |    | || |_| |
+  \____\__,_|_|\___|\__,_|_|\__,_|\__\___/|_|    |_(_)___/ 
+                                                           
+
+The Calculator program allows users to perform basic arithmetic operations from the command line.  The invocation syntax is as follows:
+
+     java Calculator COMMAND ARG_1 ARG_2 [ARG_3] ... [ARG_N]
+
+########
+FEATURES
+########
+
+--------
+Addition
+--------
+Feature: The program can be used to provide the sum of an arbitrary number of operands.  The command for performing addition is “--add”.  
+
+    Scenario: Add two numbers together
+        Given the command: --add
+        And the arguments: 3 1.5
+        When Calculator is executed
+        Then “3.0 + 1.5 = 4.5” is displayed
+
+    Scenario: Add more than two numbers together
+        Given the command: --add
+        And the arguments: 1.75 2 3.0 4 5.25
+        When Calculator is executed
+        Then “1.75 + 2.0 + 3.0 + 4.0 + 5.25 = 16.0” is displayed
+
+-----------
+Subtraction
+-----------
+Feature: The program can be used to provide the difference between two numbers. The command for performing subtraction is “--sub”.  
+
+    Scenario: Find the difference between two numbers
+        Given the command: --sub
+        And the arguments: 3 1.5
+        When Calculator is executed
+        Then “3.0 − 1.5 = 1.5” is displayed
+
+--------------
+Multiplication
+--------------
+Feature: The program can be used to provide the product of an arbitrary number of operands.  The command for performing addition is “--mult”.  
+
+    Scenario: Multiply two numbers together
+        Given the command: --mult
+        And the arguments: 5 1.5
+        When Calculator is executed
+        Then “5.0 × 1.5 = 7.5” is displayed
+
+    Scenario: Multiply more than two numbers together
+        Given the command: --mult
+        And the arguments: 1.5 2 3.25
+        When Calculator is executed
+        Then “1.5 × 2 × 3.25 = 9.75” is displayed
+
+--------
+Division
+--------
+Feature: The program can be used to provide the quotient of two numbers. The command for performing division is “--div”.  
+
+    Scenario: Find the quotient of two numbers
+        Given the command: --sub
+        And the arguments: 3 2.0
+        When Calculator is executed
+        Then “3.0 ÷ 2.0 = 1.5” is displayed
+
+--------------
+Exponentiation
+--------------
+Feature: The program can be used to provide the value of a base number raised by an exponent.  The command for performing exponentiation is “--pow”.
+
+    Scenario: Raise a base number by an exponent
+        Given the command: --pow
+        And the arguments: 3 2
+        When Calculator is executed
+        Then “3 raised to the power of 2 = 9” is displayed
+
+    Scenario: Fractional exponents are not allowed
+        Given the command: --pow
+        And the arguments: 3 2.5
+        When Calculator is executed
+        Then “Error: Fractional exponents are not allowed” is displayed as an error
+
+---------------
+Error Reporting
+---------------
+Feature: In order to make the program more user friendly, helpful feedback is provided when the user provides invalid input.  
+
+    Scenario: An invalid number of arguments is provided for a command
+        Given the command: <Command>
+        And the invalid arguments: <Arguments>
+        When Calculator is executed
+        Then <Message> is displayed as an error
+
+        Examples:
+            | Command | Arguments | Message                                                              |
+            | --add   | 1         | Usage: Calculator --add addend_1 addend_2 [addend_3] ... [addend_n]  |
+            | --sub   | 1 2 3     | Usage: Calculator --sub minuend subtrahend                           |
+            | --mult  | 7         | Usage: Calculator --mult factor_1 factor_2 [factor_3] ... [factor_N] |
+            | --div   |           | Usage: Calculator --div dividend divisor                             |
+            | --pow   | 4 5 6     | Usage: Calculator --pow base exponent                                |
+
