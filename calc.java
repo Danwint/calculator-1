@@ -1,37 +1,47 @@
 public class calc {
 	public static void main(String[] args) {
-		switch(args[0]) {
-			case "--add"  :  addition(args);
+		if (args.length > 0) {
+			switch(args[0]) {
+				case "--add"  :  addition(args);
+							 	break;
+				case "--sub"  :  subtraction(args);
+							 	break;
+				case "--mult" :  multiplication(args);
+							 	break;
+				case "--div"  :  division(args);
 							 break;
-			case "--sub"  :  subtraction(args);
+				case "--pow"  :  exponentiation(args);
 							 break;
-			case "--mult" :  multiplication(args);
-							 break;
-			case "--div"  :  division(args);
-							 break;
-			case "--pow"  :  exponentiation(args);
-							 break;
-			default       :  System.out.println("\nI don't recognize \""+args[0]+"\" as a command.");
-							 System.out.println("\nValid Commands:");
-							 System.out.println("--add: Addition, --sub Subtraction");
-							 System.out.println("--mult: Multiplication, --div: Division");
-							 System.out.println("--pow: Exponentiation\n");
+				default       :  System.out.println("\nI don't recognize \""+args[0]+"\" as a command.");
+							 	 System.out.println("\nValid Commands:");
+							 	 System.out.println("--add: Addition, --sub Subtraction");
+							 	 System.out.println("--mult: Multiplication, --div: Division");
+							 	 System.out.println("--pow: Exponentiation\n");
+			}
+		} else {
+	 	 System.out.println("\nValid Commands:");
+	 	 System.out.println("--add: Addition, --sub Subtraction");
+	 	 System.out.println("--mult: Multiplication, --div: Division");
+	 	 System.out.println("--pow: Exponentiation\n");
 		}
 	}
 	
 	static void addition(String[] args) {
 		double sum = 0;
-		for (int i = 1; i < args.length; i++) {
-			double addend = Double.valueOf(args[i]);
-			sum += addend;
-			System.out.print(addend);
-			if (i < args.length - 1) {
-				System.out.print(" + ");
+		if (args.length >= 3) {
+			for (int i = 1; i < args.length; i++) {
+				double addend = Double.valueOf(args[i]);
+				sum += addend;
+				System.out.print(addend);
+				if (i < args.length - 1) {
+					System.out.print(" + ");
+				}
 			}
-			
-		}
-		System.out.println(" = "+sum);
-		
+			System.out.println(" = "+sum);
+		} else {
+			System.out.println("\nAddition requires two or more values.\n");
+			System.out.println("format example: --sub <addend> <addend> ...\n");
+		}	
 	}
 	
 	static void subtraction(String[] args) {
@@ -48,22 +58,27 @@ public class calc {
 	
 	static void multiplication(String[] args) {
 		double product = 1;
-		for (int i = 1; i < args.length; i++) {
-			double factor = Double.valueOf(args[i]);
-			product *= factor;
-			System.out.print(factor);
-			if (i < args.length - 1) {
-				System.out.print(" * ");
-			}
-			
+		if (args.length >= 3) {
+			for (int i = 1; i < args.length; i++) {
+				double factor = Double.valueOf(args[i]);
+				product *= factor;
+				System.out.print(factor);
+				if (i < args.length - 1) {
+					System.out.print(" * ");
+				}
+			} 
+			System.out.println(" = "+product);
+		} else {
+			System.out.println("\nMultiplication requires two or more values.\n");
+			System.out.println("format example: --mult <factor> <factor> ...\n");
 		}
-		System.out.println(" = "+product);
 	}
 	
 	static void division(String[] args) {
-		double dividend = Double.valueOf(args[1]);
-		double divisor = Double.valueOf(args[2]);
+		
 		if (args.length == 3 && divisor != 0) {
+			double dividend = Double.valueOf(args[1]);
+			double divisor = Double.valueOf(args[2]);
 			double quotient = dividend / divisor;
 			System.out.println(dividend+" / "+divisor+" = "+quotient);
 		} else {
